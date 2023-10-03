@@ -7,12 +7,12 @@
     <div class="messages">
       <% messages.forEach(message => { %>
         <div>
-          <div><strong><%= message.title %></strong><% if (currentUser) { %>
+          <div><strong><%= message.title %></strong><% if (currentUser.membership_status) { %>
               - <%= message.author %>
             <% } %>
           </div>
           <div><%= message.text %></div>
-          <% if (currentUser) { %>
+          <% if (currentUser.membership_status) { %>
             <div><%= message.time_formatted %></div>
           <% } %>
           <% if (currentUser.admin) { %>
