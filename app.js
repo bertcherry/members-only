@@ -83,7 +83,10 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect: '/'
 }));
 
-app.post('messages/:id/delete', message_controller.message_delete_post);
+app.get('/messages/create', message_controller.message_create_get);
+app.post('/messages/create', message_controller.message_create_post);
+
+app.post('/messages/:id/delete', message_controller.message_delete_post);
 
 app.get('/logout', (req, res, next) => {
   req.logout((err) => {
