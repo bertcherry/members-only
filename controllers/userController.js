@@ -53,7 +53,7 @@ exports.user_create_post = [
             });
         } else {
             await user.save();
-            res.redirect('/');
+            res.redirect('/login');
         }
     }),
 ];
