@@ -1,5 +1,8 @@
 <div class="nav-bar">
-    <h1>Members Only</h1>
+    <h1><a href="/">Members Only</a></h1>
+    <% if (currentUser) { %>
+        <div><%= currentUser.first_name %></div>
+    <% } %>
     <nav>
         <% if (!currentUser) { %> 
             <a href="/sign-up">Sign Up</a>

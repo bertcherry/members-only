@@ -10,14 +10,42 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const User = require('./models/user');
+const user_controller = require('./controllers/userController');
 
 mongoose.set('strictQuery', false);
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(process.env.DEV_DATABASE), { useUnifiedTopology: true, useNewUrlParser: true };
 }
+
+passport.use(
+  new LocalStrategy(async (email, password, done) => {
+    const user = await UserActivation.findOne({ email: email });
+    if (!user) {
+      return done(null, false, { message: 'No user matches that email.' });
+    }
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return done(null, false, { message: 'Incorrect password' });
+    }
+    if (err) {
+      return done(err);
+    }
+    return done(null, user);
+  })
+);
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch(err) {
+    done(err);
+  }
+});
 
 const app = express();
 
@@ -39,8 +67,26 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+app.get('/sign-up', user_controller.user_create_get);
+app.post('/sign-up', user_controller.user_create_post);
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/'
+}));
+
+app.get('/logout', (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
