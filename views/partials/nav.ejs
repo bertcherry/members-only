@@ -1,0 +1,11 @@
+<div class="nav-bar">
+    <h1>Members Only</h1>
+    <nav>
+        <% if (!currentUser) { %> 
+            <a href="/sign-up">Sign Up</a>
+            <a href="/login">Log In</a>
+        <% } else { %>
+            <a href="/logout">Log Out</a>
+        <% } %>
+    </nav>
+</div>
