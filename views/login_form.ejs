@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') -%>
+  <body>
+    <%- include('partials/nav') -%>
+    <h1><%= title %></h1>
+    <form action="" method="post">
+        <label for="email">Email: <input type="email" id="email" name="email" required autocomplete="email"></label>
+        <label for="password">Password: <input type="password" id="password" name="password" required></label>
+        <button type="submit">Log In</button>
+    </form>
+  </body>
+</html>

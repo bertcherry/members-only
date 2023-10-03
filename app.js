@@ -74,6 +74,9 @@ app.get('/', function(req, res, next) {
 app.get('/sign-up', user_controller.user_create_get);
 app.post('/sign-up', user_controller.user_create_post);
 
+app.get('/login', function(req, res, next) {
+  res.render('login_form', { title: 'Log In' });
+});
 app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/'
