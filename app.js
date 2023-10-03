@@ -12,6 +12,7 @@ require('dotenv').config();
 
 const User = require('./models/user');
 const user_controller = require('./controllers/userController');
+const message_controller = require('./controllers/messageController');
 
 mongoose.set('strictQuery', false);
 main().catch((err) => console.log(err));
@@ -68,7 +69,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Members Only' });
 });
 
 app.get('/sign-up', user_controller.user_create_get);
@@ -81,6 +82,8 @@ app.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/'
 }));
+
+app.post('messages/:id/delete', message_controller.message_delete_post);
 
 app.get('/logout', (req, res, next) => {
   req.logout((err) => {

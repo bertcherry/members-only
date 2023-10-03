@@ -4,5 +4,25 @@
   <body>
     <%- include('partials/nav') -%>
     <p>Welcome to <%= title %></p>
+    <div class="messages">
+      <% messages.forEach(message => { %>
+        <div>
+          <div><strong><%= message.title %></strong><% if (currentUser) { %>
+              - <%= message.author %>
+            <% } %>
+          </div>
+          <div><%= message.text %></div>
+          <% if (currentUser) { %>
+            <div><%= message.time_formatted %></div>
+          <% } %>
+          <% if (currentUser.admin) { %>
+            <form action="/messages/<%= message._id %>/delete" method="post">
+                <input type="hidden" id="messageid" name="messageid" required value="<%= message._id %>">
+                <button type="submit">Delete</button>
+            </form>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
   </body>
 </html>
