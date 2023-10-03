@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') -%>
+  <body>
+    <%- include('partials/nav') -%>
+    <h1><%= title %></h1>
+    <form action="" method="post">
+        <label for="first_name">First Name: <input type="text" id="first_name" name="first_name" value="<%= typeof user!='undefined' ? user.first_name : '' %>" required></label>
+        <label for="last_name">Last Name: <input type="text" id="last_name" name="last_name" value="<%= typeof user!='undefined' ? user.last_name : '' %>" required></label>
+        <label for="email">Email: <input type="email" id="email" name="email" value="<%= typeof user!='undefined' ? user.email : '' %>" required autocomplete="email"></label>
+        <label for="password">Password: <input type="password" id="password" name="password" minlength="8" required></label>
+        <label for="password_confirm">Confirm Password: <input type="password" id="password_confirm" name="password_confirm" required></label>
+        <label for="member_code">Member Code: <input type="text" id="member_code" name="member_code" value="<%= typeof user!='undefined' ? user.member_code : '' %>"></label>
+        <button type="submit">Sign Up</button>
+    </form>
+  </body>
+</html>
