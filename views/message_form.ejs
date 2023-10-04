@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') -%>
+  <body>
+    <%- include('partials/nav') -%>
+    <h1><%= title %></h1>
+    <form action="" method="post">
+        <label for="title">Title: <input type="text" id="title" name="title" value="<%= typeof message!='undefined' ? message.title : '' %>" required></label>
+        <label for="text">Text: <input type="text" id="text" name="text" value="<%= typeof message!='undefined' ? message.text : '' %>" required></label>
+        <button type="submit">Create</button>
+    </form>
+  </body>
+</html>
