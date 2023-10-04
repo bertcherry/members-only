@@ -8,7 +8,7 @@
       <% messages.forEach(message => { %>
         <div>
           <div><strong><%= message.title %></strong><% if (currentUser.membership_status) { %>
-              - <%= message.author %>
+              - <%= message.author.full_name %>
             <% } %>
           </div>
           <div><%= message.text %></div>
